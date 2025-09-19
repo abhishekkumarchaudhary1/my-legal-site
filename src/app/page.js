@@ -76,7 +76,7 @@ export default function Home() {
             Simplify Legal and Regulatory Consulting Services
           </motion.h1>
           <motion.p className={styles.heroSubtitle} variants={fadeInUp}>
-            LegalConsult Pro is one of India's leading legal service providers. We empower multiple professional lawyers, CAs, and CSs to help each & every client through tax, audit, legal, startups, & More.
+            LegalConsult Pro is one of India&apos;s leading legal service providers. We empower multiple professional lawyers, CAs, and CSs to help each & every client through tax, audit, legal, startups, & More.
           </motion.p>
           <motion.button 
             className={styles.ctaButton}
@@ -326,7 +326,7 @@ export default function Home() {
               </ul>
             </div>
             <div className={styles.footerSection}>
-              <h4>Let's Get In Touch</h4>
+              <h4>Let&apos;s Get In Touch</h4>
               <p>Business District, Mumbai-400001</p>
               <p>info@legalconsultpro.com</p>
               <p>+91 9876543210</p>
