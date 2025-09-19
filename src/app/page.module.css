@@ -70,6 +70,10 @@
   padding: 8rem 2rem 4rem;
   text-align: center;
   margin-top: 80px;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .heroContent {
@@ -411,7 +415,9 @@
   }
 
   .hero {
-    padding: 6rem 1rem 3rem;
+    padding: 2rem 1rem;
+    margin-top: 120px; /* Increased to account for taller mobile header */
+    min-height: calc(100vh - 120px);
   }
 
   .heroTitle {
@@ -453,6 +459,12 @@
 }
 
 @media (max-width: 480px) {
+  .hero {
+    margin-top: 140px; /* Even more space for very small screens */
+    min-height: calc(100vh - 140px);
+    padding: 1.5rem 1rem;
+  }
+
   .heroTitle {
     font-size: 1.5rem;
   }
