@@ -4,8 +4,32 @@ import Image from "next/image";
 import styles from "./page.module.css";
 import { motion } from "framer-motion";
 import { AnimatedStats } from "./components/AnimatedStats";
+import { useState, useEffect } from "react";
 
 export default function Home() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  // Close mobile menu when screen size changes to desktop
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 768 && isMobileMenuOpen) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    // Add event listener
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup event listener on component unmount
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [isMobileMenuOpen]);
+
   // Animation variants
   const fadeInUp = {
     initial: { opacity: 0, y: 60 },
@@ -50,18 +74,54 @@ export default function Home() {
           <div className={styles.logo}>
             <h2>LegalConsult Pro</h2>
           </div>
+          
+          {/* Desktop Navigation */}
           <nav className={styles.nav}>
             <a href="#home">Home</a>
             <a href="#about">About Us</a>
             <a href="#services">Services</a>
-            <a href="#clients">Our Clients</a>
             <a href="#contact">Contact Us</a>
           </nav>
+          
+          {/* Desktop Contact Info */}
           <div className={styles.contactInfo}>
             <span>📞 +91 9876543210</span>
             <span>✉️ info@legalconsultpro.com</span>
           </div>
+          
+          {/* Mobile Hamburger Button */}
+          <button 
+            className={styles.hamburger}
+            onClick={toggleMobileMenu}
+            aria-label="Toggle mobile menu"
+          >
+            <span className={`${styles.hamburgerLine} ${isMobileMenuOpen ? styles.hamburgerLineActive : ''}`}></span>
+            <span className={`${styles.hamburgerLine} ${isMobileMenuOpen ? styles.hamburgerLineActive : ''}`}></span>
+            <span className={`${styles.hamburgerLine} ${isMobileMenuOpen ? styles.hamburgerLineActive : ''}`}></span>
+          </button>
         </div>
+        
+        {/* Mobile Navigation Menu */}
+        <motion.nav 
+          className={`${styles.mobileNav} ${isMobileMenuOpen ? styles.mobileNavOpen : ''}`}
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ 
+            opacity: isMobileMenuOpen ? 1 : 0, 
+            height: isMobileMenuOpen ? 'auto' : 0 
+          }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
+        >
+          <div className={styles.mobileNavContent}>
+            <a href="#home" onClick={() => setIsMobileMenuOpen(false)}>Home</a>
+            <a href="#about" onClick={() => setIsMobileMenuOpen(false)}>About Us</a>
+            <a href="#services" onClick={() => setIsMobileMenuOpen(false)}>Services</a>
+            <a href="#contact" onClick={() => setIsMobileMenuOpen(false)}>Contact Us</a>
+            <div className={styles.mobileContactInfo}>
+              <span>📞 +91 9876543210</span>
+              <span>✉️ info@legalconsultpro.com</span>
+            </div>
+          </div>
+        </motion.nav>
       </header>
 
       {/* Hero Section */}
@@ -99,7 +159,7 @@ export default function Home() {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            Our Expertise Across Industries
+            Services
           </motion.h2>
           <motion.div 
             className={styles.servicesGrid}
@@ -109,75 +169,186 @@ export default function Home() {
             viewport={{ once: true }}
           >
             <motion.div className={styles.serviceCard} variants={cardVariants}>
-              <div className={styles.serviceIcon}>⚖️</div>
-              <h3>Startup Registration</h3>
-              <p>Assist you from the start of your business to create recognition of your business.</p>
+              <div className={styles.serviceIcon}>📦</div>
+              <h3>LMPC Registration: Clear Customs Without Delay</h3>
+              <p>
+                A Legal Metrology Packaged Commodities (LMPC) certificate is mandatory for importing or selling pre-packaged goods in India. We manage the entire LMPC registration process—documentation, filing, and final approval—so you can avoid customs seizures, costly delays, and penalties.
+              </p>
+              <ul>
+                <li>Avoid costly seizure of goods at customs.</li>
+                <li>Get your products to the market faster.</li>
+                <li>Achieve full compliance with consumer protection laws.</li>
+                <li>Build trust with clear and legal packaging details.</li>
+              </ul>
               <motion.button 
                 className={styles.serviceButton}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                Visit Now
+                Get a Free LMPC Consultation
               </motion.button>
             </motion.div>
+
             <motion.div className={styles.serviceCard} variants={cardVariants}>
-              <div className={styles.serviceIcon}>📋</div>
-              <h3>Regulatory (BIS, CDSCO)</h3>
-              <p>Numerous professionals to guide you for BIS, CDSCO, & ISO registration services.</p>
+              <div className={styles.serviceIcon}>♻️</div>
+              <h3>EPR for Plastic Waste: Meet Your Sustainability Goals</h3>
+              <p>
+                If your business uses plastic packaging, EPR registration with CPCB is mandatory. We handle end-to-end EPR compliance—from registration and annual planning to PRO tie-ups and filings—so you stay compliant and strengthen your eco-friendly brand image.
+              </p>
+              <ul>
+                <li>Hassle-free CPCB registration.</li>
+                <li>Effective annual waste collection plan.</li>
+                <li>Connect with authorized recyclers (PROs).</li>
+                <li>Accurate annual returns and compliance.</li>
+              </ul>
               <motion.button 
                 className={styles.serviceButton}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                Visit Now
+                Request an EPR Action Plan
               </motion.button>
             </motion.div>
+
             <motion.div className={styles.serviceCard} variants={cardVariants}>
-              <div className={styles.serviceIcon}>🌱</div>
-              <h3>Environmental Consultancy</h3>
-              <p>Protecting, managing and restoring environment is vital for business. Our experts assist in environment services.</p>
+              <div className={styles.serviceIcon}>🖥️</div>
+              <h3>E-Waste Management: Comply with Confidence</h3>
+              <p>
+                Under the E-Waste Management Rules, 2022, producers and importers must ensure responsible disposal. We secure CPCB authorization, coordinate with certified recyclers, and manage all documentation and returns to keep you compliant and environmentally responsible.
+              </p>
+              <ul>
+                <li>CPCB registration and authorization.</li>
+                <li>Certified recycler coordination.</li>
+                <li>Documentation and annual return filings.</li>
+                <li>Take-back programs and awareness support.</li>
+              </ul>
               <motion.button 
                 className={styles.serviceButton}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                Visit Now
+                Talk to an Expert Today
               </motion.button>
             </motion.div>
+
             <motion.div className={styles.serviceCard} variants={cardVariants}>
-              <div className={styles.serviceIcon}>📄</div>
-              <h3>Licensing</h3>
-              <p>Guide many companies for various licenses such as Legal metrology, FSSAI License, Trade License, & More.</p>
+              <div className={styles.serviceIcon}>🔋</div>
+              <h3>Battery Waste Management: Power Your Business Responsibly</h3>
+              <p>
+                Comply with the Battery Waste Management Rules, 2022. We simplify Battery EPR—from CPCB portal registration and collection planning to recycler tie-ups and reporting—so you meet all obligations safely and sustainably.
+              </p>
+              <ul>
+                <li>Seamless CPCB portal registration.</li>
+                <li>Waste collection and recycling plan.</li>
+                <li>Authorized recycler onboarding.</li>
+                <li>Compliance and reporting management.</li>
+              </ul>
               <motion.button 
                 className={styles.serviceButton}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                Visit Now
+                Get Started with a Free Assessment
               </motion.button>
             </motion.div>
+
             <motion.div className={styles.serviceCard} variants={cardVariants}>
-              <div className={styles.serviceIcon}>🏥</div>
-              <h3>Medical Registration</h3>
-              <p>Expert-driven platform offering seamless solutions for medical device registration and CDSCO compliance.</p>
+              <div className={styles.serviceIcon}>🔐</div>
+              <h3>Digital Signature Certificate (DSC): Secure Your Online Filings</h3>
+              <p>
+                Get a Class 3 DSC quickly for MCA, GST, Income Tax, DGFT, and e-tenders. We guide verification, ensure fast issuance, and support installation and renewals so your filings are secure and uninterrupted.
+              </p>
+              <ul>
+                <li>Quick verification guidance.</li>
+                <li>Fast Class 3 DSC issuance.</li>
+                <li>Installation help and renewal reminders.</li>
+              </ul>
               <motion.button 
                 className={styles.serviceButton}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                Visit Now
+                Apply for Your DSC Now
               </motion.button>
             </motion.div>
+
             <motion.div className={styles.serviceCard} variants={cardVariants}>
-              <div className={styles.serviceIcon}>💄</div>
-              <h3>Cosmetics Regulatory</h3>
-              <p>Expert techniques to ensure your cosmetic products meet international standards.</p>
+              <div className={styles.serviceIcon}>🏭</div>
+              <h3>MSME / Udyam Registration: Unlock Government Benefits</h3>
+              <p>
+                Access priority sector lending, subsidies, tender preference, and protection against delayed payments. We register you correctly, explain eligible benefits, and help you claim schemes and collateral-free loans.
+              </p>
+              <ul>
+                <li>Fast and accurate Udyam registration.</li>
+                <li>Benefit discovery and guidance.</li>
+                <li>Support for subsidies and loans.</li>
+              </ul>
               <motion.button 
                 className={styles.serviceButton}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                Visit Now
+                Start Your Udyam Registration Today
+              </motion.button>
+            </motion.div>
+
+            <motion.div className={styles.serviceCard} variants={cardVariants}>
+              <div className={styles.serviceIcon}>💍</div>
+              <h3>BIS Hallmarking: Build Unbreakable Customer Trust</h3>
+              <p>
+                Hallmarking is mandatory for gold and silver jewelry. We manage documentation, coordinate with hallmarking and assaying centers, and ensure full compliance so your brand stands for purity and trust.
+              </p>
+              <ul>
+                <li>Documentation preparation and submission.</li>
+                <li>Coordination with hallmarking centers.</li>
+                <li>End-to-end compliance support.</li>
+              </ul>
+              <motion.button 
+                className={styles.serviceButton}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Register for BIS Hallmarking
+              </motion.button>
+            </motion.div>
+
+            <motion.div className={styles.serviceCard} variants={cardVariants}>
+              <div className={styles.serviceIcon}>🌏</div>
+              <h3>Import Export Code (IEC): Your License to Go Global</h3>
+              <p>
+                An IEC from DGFT is essential for international trade. We provide a seamless, error-free registration so you can clear customs, transact globally, and unlock export promotion schemes.
+              </p>
+              <ul>
+                <li>Enter and expand in global markets.</li>
+                <li>Unlock new revenue streams.</li>
+                <li>Leverage export promotion benefits.</li>
+              </ul>
+              <motion.button 
+                className={styles.serviceButton}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Apply for Your IEC Today
+              </motion.button>
+            </motion.div>
+
+            <motion.div className={styles.serviceCard} variants={cardVariants}>
+              <div className={styles.serviceIcon}>🚀</div>
+              <h3>Startup India Registration: Fuel Your Innovative Idea</h3>
+              <p>
+                Get DPIIT recognition to access tax exemptions, funds, and faster IP processes. We ensure eligibility, craft a strong application, and guide you through availing benefits to build credibility and scale.
+              </p>
+              <ul>
+                <li>Eligibility assessment and guidance.</li>
+                <li>Compelling DPIIT application support.</li>
+                <li>Help in availing tax and key benefits.</li>
+              </ul>
+              <motion.button 
+                className={styles.serviceButton}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Begin Your Startup India Registration
               </motion.button>
             </motion.div>
           </motion.div>
