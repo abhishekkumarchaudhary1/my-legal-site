@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "LegalConsult Pro - Legal and Regulatory Consulting Services",
+  title: "Hanvika compliance - Legal and Regulatory Consulting Services",
   description: "India's leading legal service provider specializing in startup registration, regulatory compliance, BIS registration, medical device registration, and comprehensive legal consulting services.",
   keywords: "legal consulting, regulatory compliance, startup registration, BIS registration, medical device registration, legal services India",
 };

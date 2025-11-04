@@ -72,7 +72,7 @@ export default function Home() {
       <header className={styles.header}>
         <div className={styles.navContainer}>
           <div className={styles.logo}>
-            <h2>LegalConsult Pro</h2>
+            <h2>Hanvika compliance</h2>
           </div>
           
           {/* Desktop Navigation */}
@@ -136,7 +136,7 @@ export default function Home() {
             Simplify Legal and Regulatory Consulting Services
           </motion.h1>
           <motion.p className={styles.heroSubtitle} variants={fadeInUp}>
-            LegalConsult Pro is one of India&apos;s leading legal service providers. We empower multiple professional lawyers, CAs, and CSs to help each & every client through tax, audit, legal, startups, & More.
+            Hanvika compliance is one of India&apos;s leading legal service providers. We empower multiple professional lawyers, CAs, and CSs to help each & every client through tax, audit, legal, startups, & More.
           </motion.p>
           <motion.button 
             className={styles.ctaButton}
@@ -504,7 +504,7 @@ export default function Home() {
             </div>
           </div>
           <div className={styles.footerBottom}>
-            <p>&copy; 2025 - LegalConsult Pro. All Rights Reserved</p>
+            <p>&copy; 2025 - Hanvika compliance. All Rights Reserved</p>
             <p>Privacy Policy</p>
           </div>
         </div>
