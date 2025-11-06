@@ -5,6 +5,8 @@ import styles from "./page.module.css";
 import { motion } from "framer-motion";
 import { AnimatedStats } from "./components/AnimatedStats";
 import { useState, useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Home() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -29,6 +31,22 @@ export default function Home() {
       window.removeEventListener('resize', handleResize);
     };
   }, [isMobileMenuOpen]);
+
+  const scrollToSection = (targetId, opts = { closeMenu: false }) => {
+    const doScroll = () => {
+      const element = document.getElementById(targetId);
+      if (!element) return;
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+
+    if (opts.closeMenu && isMobileMenuOpen) {
+      setIsMobileMenuOpen(false);
+      // wait a tick so menu close doesn't interfere with scroll position
+      setTimeout(doScroll, 50);
+    } else {
+      doScroll();
+    }
+  };
 
   // Animation variants
   const fadeInUp = {
@@ -68,11 +86,21 @@ export default function Home() {
 
   return (
     <div className={styles.page}>
+      <ToastContainer position="top-right" autoClose={4000} newestOnTop theme="colored" />
       {/* Header Navigation */}
       <header className={styles.header}>
         <div className={styles.navContainer}>
           <div className={styles.logo}>
-            <h2>Hanvika compliance</h2>
+            <Image 
+              src="/hanvikalogo.svg" 
+              alt="Hanvika compliance" 
+              width={240} 
+              height={60}
+              className={styles.logoImage}
+              priority
+              quality={100}
+              sizes="(max-width: 768px) 180px, 240px"
+            />
           </div>
           
           {/* Desktop Navigation */}
@@ -86,7 +114,7 @@ export default function Home() {
           {/* Desktop Contact Info */}
           <div className={styles.contactInfo}>
             <span>📞 +91 9876543210</span>
-            <span>✉️ info@legalconsultpro.com</span>
+            <span>✉️ hanvikcompliance@gmail.com</span>
           </div>
           
           {/* Mobile Hamburger Button */}
@@ -112,13 +140,13 @@ export default function Home() {
           transition={{ duration: 0.3, ease: "easeInOut" }}
         >
           <div className={styles.mobileNavContent}>
-            <a href="#home" onClick={() => setIsMobileMenuOpen(false)}>Home</a>
-            <a href="#about" onClick={() => setIsMobileMenuOpen(false)}>About Us</a>
-            <a href="#services" onClick={() => setIsMobileMenuOpen(false)}>Services</a>
-            <a href="#contact" onClick={() => setIsMobileMenuOpen(false)}>Contact Us</a>
+            <a href="#home" onClick={(e) => { e.preventDefault(); scrollToSection('home', { closeMenu: true }); }}>Home</a>
+            <a href="#about" onClick={(e) => { e.preventDefault(); scrollToSection('about', { closeMenu: true }); }}>About Us</a>
+            <a href="#services" onClick={(e) => { e.preventDefault(); scrollToSection('services', { closeMenu: true }); }}>Services</a>
+            <a href="#contact" onClick={(e) => { e.preventDefault(); scrollToSection('contact', { closeMenu: true }); }}>Contact Us</a>
             <div className={styles.mobileContactInfo}>
               <span>📞 +91 9876543210</span>
-              <span>✉️ info@legalconsultpro.com</span>
+              <span>✉️ hanvikcompliance@gmail.com</span>
             </div>
           </div>
         </motion.nav>
@@ -143,6 +171,7 @@ export default function Home() {
             variants={fadeInUp}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            onClick={() => scrollToSection('contact')}
           >
             Book Your Appointment
           </motion.button>
@@ -419,7 +448,7 @@ export default function Home() {
                 transition={{ type: "spring", stiffness: 300 }}
               >
                 <span className={styles.contactIcon}>✉️</span>
-                <span>info@legalconsultpro.com</span>
+                <span>hanvikacompliance@gmail.com</span>
               </motion.div>
               <motion.div 
                 className={styles.contactItem}
@@ -432,43 +461,7 @@ export default function Home() {
             </motion.div>
             <motion.div className={styles.contactForm} variants={fadeInRight}>
               <h3>Are You Ready To Start Registration With Us?</h3>
-              <form>
-                <motion.input 
-                  type="text" 
-                  placeholder="Your Name" 
-                  required 
-                  whileFocus={{ scale: 1.02 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                />
-                <motion.input 
-                  type="email" 
-                  placeholder="Your Email" 
-                  required 
-                  whileFocus={{ scale: 1.02 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                />
-                <motion.input 
-                  type="tel" 
-                  placeholder="Your Phone" 
-                  required 
-                  whileFocus={{ scale: 1.02 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                />
-                <motion.textarea 
-                  placeholder="Your Message" 
-                  rows="4" 
-                  required 
-                  whileFocus={{ scale: 1.02 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                />
-                <motion.button 
-                  type="submit"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Send Message
-                </motion.button>
-              </form>
+            <ContactForm />
             </motion.div>
           </motion.div>
         </div>
@@ -499,7 +492,7 @@ export default function Home() {
             <div className={styles.footerSection}>
               <h4>Let&apos;s Get In Touch</h4>
               <p>Business District, Mumbai-400001</p>
-              <p>info@legalconsultpro.com</p>
+              <p>hanvikcompliance@gmail.com</p>
               <p>+91 9876543210</p>
             </div>
           </div>
@@ -510,5 +503,88 @@ export default function Home() {
         </div>
       </footer>
     </div>
+  );
+}
+
+function ContactForm() {
+  const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
+  const [status, setStatus] = useState({ loading: false });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus({ loading: true });
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to send');
+      setStatus({ loading: false });
+      toast.success('Message sent successfully.');
+      setForm({ name: "", email: "", phone: "", message: "" });
+    } catch (err) {
+      setStatus({ loading: false });
+      toast.error(err.message || 'Failed to send message.');
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <motion.input 
+        type="text" 
+        name="name"
+        placeholder="Your Name" 
+        required 
+        value={form.name}
+        onChange={handleChange}
+        whileFocus={{ scale: 1.02 }}
+        transition={{ type: "spring", stiffness: 300 }}
+      />
+      <motion.input 
+        type="email" 
+        name="email"
+        placeholder="Your Email" 
+        required 
+        value={form.email}
+        onChange={handleChange}
+        whileFocus={{ scale: 1.02 }}
+        transition={{ type: "spring", stiffness: 300 }}
+      />
+      <motion.input 
+        type="tel" 
+        name="phone"
+        placeholder="Your Phone" 
+        required 
+        value={form.phone}
+        onChange={handleChange}
+        whileFocus={{ scale: 1.02 }}
+        transition={{ type: "spring", stiffness: 300 }}
+      />
+      <motion.textarea 
+        name="message"
+        placeholder="Your Message" 
+        rows="4" 
+        required 
+        value={form.message}
+        onChange={handleChange}
+        whileFocus={{ scale: 1.02 }}
+        transition={{ type: "spring", stiffness: 300 }}
+      />
+      <motion.button 
+        type="submit"
+        disabled={status.loading}
+        whileHover={{ scale: status.loading ? 1.0 : 1.05 }}
+        whileTap={{ scale: status.loading ? 1.0 : 0.95 }}
+      >
+        {status.loading ? 'Sending...' : 'Send Message'}
+      </motion.button>
+    </form>
   );
 }

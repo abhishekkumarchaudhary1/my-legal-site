@@ -49,6 +49,16 @@
   font-weight: 700;
 }
 
+/* Logo image styling to prevent stretch and improve clarity */
+.logoImage {
+  height: 60px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
 .nav {
   display: flex;
   gap: 2rem;
@@ -494,6 +504,10 @@
   .navContainer {
     padding: 1rem 2rem;
     position: relative;
+  }
+
+  .logoImage {
+    height: 44px;
   }
 
   /* Hide desktop navigation and contact info on mobile */
