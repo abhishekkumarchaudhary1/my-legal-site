@@ -439,6 +439,14 @@ export default function Home() {
                 whileHover={{ scale: 1.05, x: 10 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
+                <span className={styles.contactIcon}>👤</span>
+                <span>Yagyesh Kumar Shukla</span>
+              </motion.div>
+              <motion.div 
+                className={styles.contactItem}
+                whileHover={{ scale: 1.05, x: 10 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
                 <span className={styles.contactIcon}>📞</span>
                 <span>+91 9876543210</span>
               </motion.div>
