@@ -380,6 +380,143 @@ export default function Home() {
                 Begin Your Startup India Registration
               </motion.button>
             </motion.div>
+
+            {/* IPR Services */}
+            <motion.div className={styles.serviceCard} variants={cardVariants}>
+              <div className={styles.serviceIcon}>™️</div>
+              <h3>Trademark Registration (India): Protect Your Brand Identity</h3>
+              <p>
+                Protect your brand name, logo, tagline, or packaging with trademark registration. We handle the complete process from search and filing to examination replies, hearings, and registration certificate.
+              </p>
+              <ul>
+                <li>Trademark search & class selection</li>
+                <li>Application filing (TM-A) with accurate drafting</li>
+                <li>ER reply & objection handling</li>
+                <li>Show-cause hearing representation</li>
+                <li>Opposition & counter-statement support</li>
+                <li>10-year registration certificate</li>
+              </ul>
+              <motion.button 
+                className={styles.serviceButton}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Start Trademark Registration
+              </motion.button>
+            </motion.div>
+
+            <motion.div className={styles.serviceCard} variants={cardVariants}>
+              <div className={styles.serviceIcon}>📝</div>
+              <h3>Copyright Registration: Protect Your Creative Works</h3>
+              <p>
+                Secure legal protection for your music, videos, artwork, scripts, software, and digital content. Copyright registration prevents unauthorized copying and gives you exclusive rights to monetize your creations.
+              </p>
+              <ul>
+                <li>Music, sound recordings & compositions</li>
+                <li>Books, scripts, blogs & literary works</li>
+                <li>Artwork, logos & digital designs</li>
+                <li>Software code & UI designs</li>
+                <li>Photography & cinematographic films</li>
+                <li>Fast 2-4 month registration process</li>
+              </ul>
+              <motion.button 
+                className={styles.serviceButton}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Register Your Copyright
+              </motion.button>
+            </motion.div>
+
+            <motion.div className={styles.serviceCard} variants={cardVariants}>
+              <div className={styles.serviceIcon}>🎨</div>
+              <h3>Design Registration: Protect Product Shape & Appearance</h3>
+              <p>
+                Register your unique product design—shape, pattern, configuration, or ornamentation. Perfect for apparel, containers, furniture, packaging, gadgets, and more. Valid for 10 years, extendable to 15.
+              </p>
+              <ul>
+                <li>Design search & consultation</li>
+                <li>Technical drawings (7 views)</li>
+                <li>Application filing & examination</li>
+                <li>Objection reply & hearing support</li>
+                <li>10-year registration + 5-year extension</li>
+              </ul>
+              <motion.button 
+                className={styles.serviceButton}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Register Your Design
+              </motion.button>
+            </motion.div>
+
+            <motion.div className={styles.serviceCard} variants={cardVariants}>
+              <div className={styles.serviceIcon}>🔬</div>
+              <h3>Patent Services: Protect Your Inventions & Technology</h3>
+              <p>
+                Secure exclusive rights over your invention for 20 years. We handle provisional filing, complete specification drafting, FER replies, PCT international applications, and full patent prosecution.
+              </p>
+              <ul>
+                <li>Prior art search & patentability assessment</li>
+                <li>Provisional & complete specification filing</li>
+                <li>Technical patent drafting by experts</li>
+                <li>FER reply & hearing representation</li>
+                <li>PCT international filing (150+ countries)</li>
+                <li>Pre-grant & post-grant opposition handling</li>
+              </ul>
+              <motion.button 
+                className={styles.serviceButton}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                File Your Patent
+              </motion.button>
+            </motion.div>
+
+            <motion.div className={styles.serviceCard} variants={cardVariants}>
+              <div className={styles.serviceIcon}>🌍</div>
+              <h3>International Trademarks: Global Brand Protection</h3>
+              <p>
+                Protect your brand worldwide through USPTO (USA), UKIPO (UK), UAE/Dubai, and Madrid Protocol (WIPO) filings. Single-window coordination for 130+ countries with expert handling of country-wise objections.
+              </p>
+              <ul>
+                <li>USPTO trademark registration (USA)</li>
+                <li>UK trademark filing (UKIPO)</li>
+                <li>UAE/Dubai trademark registration</li>
+                <li>Madrid Protocol (WIPO) - 130+ countries</li>
+                <li>Office action & objection handling</li>
+                <li>US attorney-assisted filings</li>
+              </ul>
+              <motion.button 
+                className={styles.serviceButton}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Protect Your Brand Globally
+              </motion.button>
+            </motion.div>
+
+            <motion.div className={styles.serviceCard} variants={cardVariants}>
+              <div className={styles.serviceIcon}>🌱</div>
+              <h3>Geographical Indications (GI): Protect Regional Products</h3>
+              <p>
+                Register products linked to specific regions known for unique quality or reputation. Examples: Darjeeling Tea, Banarasi Sarees, Mysore Sandalwood. We handle complete GI registration from filing to certificate.
+              </p>
+              <ul>
+                <li>GI-1 application preparation</li>
+                <li>Statement of case & documentation</li>
+                <li>Examination & hearing representation</li>
+                <li>Opposition handling</li>
+                <li>Producer association support</li>
+              </ul>
+              <motion.button 
+                className={styles.serviceButton}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Register Your GI
+              </motion.button>
+            </motion.div>
           </motion.div>
         </div>
       </section>
